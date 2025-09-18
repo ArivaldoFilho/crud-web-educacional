@@ -1,66 +1,293 @@
-:root{
-  --bg:#0b1020; --card:#141a2f; --muted:#8fa0c2; --text:#e9eefb; --accent:#4f8cff; --accent-2:#7bffb3; --danger:#ff6b6b; --ok:#35d49a; --warn:#ffc857;
-  --radius:14px;
-}
-*{box-sizing:border-box}
-body{margin:0;background:linear-gradient(180deg,#0b1020 0%,#0d1326 100%);color:var(--text);font:16px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial}
-a{color:var(--accent)}
-
-.app{max-width:1100px;margin:24px auto;padding:24px}
-
-.brand{display:flex;align-items:center;gap:12px;margin-bottom:18px}
-.logo{width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent-2));box-shadow:0 8px 30px rgba(79,140,255,.35)}
-h1{font-size:clamp(22px,2.2vw,28px);margin:0}
-.muted{color:var(--muted);font-size:14px}
-
-.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
-.card{grid-column:span 12;background:var(--card);border:1px solid rgba(255,255,255,.06);border-radius:var(--radius);padding:18px;box-shadow:0 6px 24px rgba(0,0,0,.25)}
-
-.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
-.tab{padding:10px 14px;border-radius:12px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);cursor:pointer}
-.tab.active{background:linear-gradient(180deg,rgba(79,140,255,.18),rgba(79,140,255,.06));border-color:rgba(79,140,255,.45)}
-
-.row{display:flex;gap:12px;flex-wrap:wrap}
-label{font-size:13px;color:var(--muted)}
-input, select, button, textarea{
-  background:#0e1428;color:var(--text);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:10px 12px;font-size:15px;outline:none;transition:.15s;min-height:42px
-}
-input:focus,select:focus,textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(79,140,255,.15)}
-button{cursor:pointer}
-.btn{background:linear-gradient(180deg,#1a2446,#131b34);border:1px solid rgba(255,255,255,.08)}
-.btn.primary{background:linear-gradient(180deg,#558fff,#3a6be0);border-color:#558fff}
-.btn.success{background:linear-gradient(180deg,#38d39f,#1fb37f);border-color:#38d39f}
-.btn.warn{background:linear-gradient(180deg,#ffc857,#e5a93a);border-color:#ffc857;color:#182238}
-.btn.danger{background:linear-gradient(180deg,#ff6b6b,#e05252);border-color:#ff6b6b}
-.btn.ghost{background:transparent}
-
-.form-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:12px}
-.col-12{grid-column:span 12}
-.col-6{grid-column:span 6}
-.col-4{grid-column:span 4}
-.col-3{grid-column:span 3}
-
-@media (max-width:800px){
-  .col-6,.col-4,.col-3{grid-column:span 12}
+/* ===== Reset ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.split{display:flex;justify-content:space-between;align-items:center;gap:12px}
+body {
+  font-family: Arial, sans-serif;
+  background: #121526;
+  color: #f0f0f0;
+  line-height: 1.5;
+  padding: 1rem;
+}
 
-table{width:100%;border-collapse:separate;border-spacing:0 8px}
-th,td{text-align:left;padding:12px 14px}
-thead th{font-size:13px;color:var(--muted);border-bottom:1px solid rgba(255,255,255,.08)}
-tbody tr{background:#0f1630;border:1px solid rgba(255,255,255,.06)}
-tbody tr td:first-child{border-top-left-radius:12px;border-bottom-left-radius:12px}
-tbody tr td:last-child{border-top-right-radius:12px;border-bottom-right-radius:12px}
+/* ===== Cards ===== */
+.card {
+  background: #1b1f34;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin: 1rem auto;
+  max-width: 1200px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
 
-.status{padding:6px 10px;border-radius:999px;font-size:12px;display:inline-block}
-.status.Ativa{background:rgba(53,212,154,.14);color:#9df0c9;border:1px solid rgba(53,212,154,.35)}
-.status.Trancada{background:rgba(255,200,87,.14);color:#ffe3a4;border:1px solid rgba(255,200,87,.35)}
-.status.Cancelada{background:rgba(255,107,107,.14);color:#ffc2c2;border:1px solid rgba(255,107,107,.35)}
+/* ===== Tela de Login / Cadastro ===== */
+#authCard {
+  max-width: 450px;
+  margin: 4rem auto;
+  padding: 2rem;
+  border-radius: 16px;
+  background: linear-gradient(145deg, #1b1f34, #181c2e);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.6);
+}
 
-.pill{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);padding:4px 10px;border-radius:999px;font-size:12px;color:var(--muted)}
-.hint{font-size:12px;color:var(--muted)}
-.error{color:var(--danger);font-size:14px}
-.ok{color:var(--ok);font-size:14px}
+#authCard h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #fff;
+}
 
-.footer{margin-top:24px;font-size:12px;color:var(--muted);text-align:center}
+/* Tabs */
+#authCard .tabs {
+  display: flex;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+}
+#authCard .tab {
+  flex: 1;
+  padding: 0.8rem;
+  border: none;
+  background: #2d3553;
+  color: #ccc;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+#authCard .tab:hover {
+  background: #3c4670;
+}
+#authCard .tab.active {
+  background: #4454a0;
+  color: #fff;
+}
+
+/* Form inputs login/cadastro */
+#authCard label {
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+#authCard input {
+  width: 100%;
+  padding: 0.8rem;
+  border-radius: 8px;
+  border: 1px solid #2d3553;
+  background: #101321;
+  color: #fff;
+  margin-bottom: 1rem;
+}
+#authCard input:focus {
+  outline: none;
+  border-color: #5c6bc0;
+  background: #15182a;
+}
+
+/* Botões login/cadastro */
+#authCard button[type="submit"],
+#authCard #demoUser {
+  width: 100%;
+  padding: 0.9rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 0.5rem;
+}
+#authCard button[type="submit"] {
+  background: #4454a0;
+  color: #fff;
+}
+#authCard button[type="submit"]:hover {
+  background: #5c6bc0;
+}
+#authCard #demoUser {
+  background: #f1f1f1;
+  color: #333;
+}
+#authCard #demoUser:hover {
+  background: #ddd;
+}
+
+/* Mensagens */
+#authCard .msg {
+  text-align: center;
+  margin-top: 0.5rem;
+  color: #ff6b6b;
+  font-size: 0.85rem;
+}
+
+/* ===== Header App ===== */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+header h2 {
+  font-size: 1.3rem;
+}
+header button {
+  padding: 0.4rem 0.8rem;
+  border: none;
+  background: #2d3553;
+  color: #fff;
+  border-radius: 6px;
+  cursor: pointer;
+}
+header button:hover {
+  background: #3c4670;
+}
+
+/* ===== Tabs do App ===== */
+#appCard .tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+#appCard .tab {
+  flex: 1;
+  padding: 0.6rem;
+  border: none;
+  background: #2d3553;
+  color: #ccc;
+  cursor: pointer;
+  border-radius: 6px;
+}
+#appCard .tab.active {
+  background: #4454a0;
+  color: #fff;
+  font-weight: bold;
+}
+
+/* ===== Forms ===== */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+fieldset {
+  border: 1px solid #2f365a;
+  border-radius: 10px;
+  padding: 1rem;
+  background: #181c2e;
+}
+fieldset legend {
+  font-weight: bold;
+  padding: 0 0.5rem;
+  color: #9ab4ff;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.9rem;
+  color: #c9c9d9;
+  gap: 0.3rem;
+}
+
+input, select, textarea {
+  padding: 0.6rem;
+  border-radius: 6px;
+  border: 1px solid #2d3553;
+  background: #101321;
+  color: #fff;
+}
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: #5c6bc0;
+}
+
+/* grid dentro dos fieldset */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+}
+
+/* Botões gerais */
+button[type="submit"], #btnExport {
+  padding: 0.7rem 1.2rem;
+  background: #4454a0;
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  cursor: pointer;
+  font-weight: bold;
+}
+button[type="submit"]:hover, #btnExport:hover {
+  background: #5c6bc0;
+}
+
+/* ===== Tabelas ===== */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  background: #181c2e;
+  border-radius: 8px;
+  overflow: hidden;
+}
+thead {
+  background: #2d3553;
+}
+th, td {
+  padding: 0.7rem;
+  text-align: left;
+}
+tbody tr:nth-child(even) {
+  background: #20263d;
+}
+
+/* Botões da tabela */
+td button {
+  display: block;
+  width: 100%;
+  padding: 0.5rem;
+  margin: 0.2rem 0;
+  border: none;
+  border-radius: 6px;
+  background: #2d3553;
+  color: #fff;
+  cursor: pointer;
+}
+td button:hover {
+  background: #3c4670;
+}
+
+/* Status */
+.status {
+  padding: 0.2rem 0.6rem;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: bold;
+}
+.status.Ativa {
+  background: #1f6f4a;
+  color: #d4ffd4;
+}
+.status.Transferida {
+  background: #7a4c1f;
+  color: #ffe1b8;
+}
+.status.Cancelada {
+  background: #752626;
+  color: #ffb8b8;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  #appCard .tabs {
+    flex-direction: column;
+  }
+  td button {
+    width: auto;
+    display: inline-block;
+  }
+}

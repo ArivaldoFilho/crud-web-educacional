@@ -3,170 +3,230 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Gestão de Matrículas</title>
+  <title>Sistema de Matrículas</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="app">
-    <div class="brand">
-      <div class="logo"></div>
-      <div>
-        <h1>Gestão de Matrículas</h1>
-        <div class="muted">Demo 100% no navegador (LocalStorage). Não use em produção.</div>
-      </div>
+
+  <!-- ===== Login / Cadastro ===== -->
+  <div class="card" id="authCard">
+    <h2>Acesso</h2>
+    <div class="tabs">
+      <button class="tab active" data-tab="login">Login</button>
+      <button class="tab" data-tab="signup">Cadastro</button>
     </div>
 
-    <!-- Auth Card -->
-    <section id="authCard" class="card">
-      <div class="tabs" role="tablist">
-        <button class="tab active" data-tab="login" role="tab">Login</button>
-        <button class="tab" data-tab="signup" role="tab">Criar conta</button>
-      </div>
+    <!-- Login -->
+    <div class="tabpanel" id="login">
+      <form id="loginForm">
+        <label>Email
+          <input type="email" id="loginEmail" required />
+        </label>
+        <label>Senha
+          <input type="password" id="loginPassword" required />
+        </label>
+        <button type="submit">Entrar</button>
+        <button type="button" id="demoUser">Usar usuário demo</button>
+        <div id="loginMsg" class="msg"></div>
+      </form>
+    </div>
 
-      <div id="login" class="tabpanel">
-        <form id="loginForm" class="form-grid" autocomplete="on">
-          <div class="col-6">
-            <label>Email</label>
-            <input type="email" id="loginEmail" required placeholder="ex: joao@email.com" />
-          </div>
-          <div class="col-6">
-            <label>Senha</label>
-            <input type="password" id="loginPassword" required placeholder="••••••••" />
-          </div>
-          <div class="col-12 split">
-            <span class="hint">Dica: teste com qualquer email. Senhas são salvas com hash no browser.</span>
-            <div class="row">
-              <button type="submit" class="btn primary">Entrar</button>
-              <button type="button" id="demoUser" class="btn ghost">Usar usuário demo</button>
-            </div>
-          </div>
-          <div id="loginMsg" class="col-12"></div>
-        </form>
-      </div>
+    <!-- Cadastro -->
+    <div class="tabpanel" id="signup" hidden>
+      <form id="signupForm">
+        <label>Nome
+          <input type="text" id="suName" required />
+        </label>
+        <label>Email
+          <input type="email" id="suEmail" required />
+        </label>
+        <label>Senha
+          <input type="password" id="suPass" required />
+        </label>
+        <label>Confirmar senha
+          <input type="password" id="suPass2" required />
+        </label>
+        <button type="submit">Criar conta</button>
+        <div id="signupMsg" class="msg"></div>
+      </form>
+    </div>
+  </div>
 
-      <div id="signup" class="tabpanel" hidden>
-        <form id="signupForm" class="form-grid" autocomplete="new-password">
-          <div class="col-6">
-            <label>Nome</label>
-            <input type="text" id="suName" required placeholder="Seu nome" />
-          </div>
-          <div class="col-6">
-            <label>Email</label>
-            <input type="email" id="suEmail" required placeholder="voce@email.com" />
-          </div>
-          <div class="col-6">
-            <label>Senha</label>
-            <input type="password" id="suPass" minlength="6" required placeholder="Mínimo 6 caracteres" />
-          </div>
-          <div class="col-6">
-            <label>Confirmar senha</label>
-            <input type="password" id="suPass2" minlength="6" required placeholder="Repita a senha" />
-          </div>
-          <div class="col-12 split">
-            <span class="hint">Seus dados ficam apenas neste dispositivo.</span>
-            <button type="submit" class="btn success">Criar conta</button>
-          </div>
-          <div id="signupMsg" class="col-12"></div>
-        </form>
-      </div>
-    </section>
+  <!-- ===== App ===== -->
+  <div class="card" id="appCard" hidden>
+    <header>
+      <h2 id="helloUser"></h2>
+      <button id="logout">Sair</button>
+    </header>
 
-    <!-- App Card -->
-    <section id="appCard" class="card" hidden>
-      <div class="split">
-        <div class="row" style="align-items:center">
-          <strong id="helloUser">Olá!</strong>
-          <span class="pill" id="stats"></span>
-        </div>
-        <div class="row">
-          <button id="seedData" class="btn warn" title="Adicionar exemplos">Popular exemplos</button>
-          <button id="logout" class="btn danger">Sair</button>
-        </div>
-      </div>
+    <div class="tabs">
+      <button class="tab active" data-tab="cadastro">Cadastro</button>
+      <button class="tab" data-tab="lista">Lista</button>
+      <button class="tab" data-tab="historico">Histórico</button>
+    </div>
 
-      <div class="tabs" role="tablist" style="margin-top:8px">
-        <button class="tab active" data-tab="cadastro" role="tab">Cadastro</button>
-        <button class="tab" data-tab="relatorio" role="tab">Relatório</button>
-      </div>
+    <!-- Cadastro -->
+    <div class="tabpanel" id="cadastro">
+      <form id="formMat">
 
-      <!-- Cadastro -->
-      <div id="cadastro" class="tabpanel">
-        <form id="formMat" class="form-grid">
-          <div class="col-6">
-            <label>Nome do Aluno</label>
-            <input id="aluno" required placeholder="Ex: Maria Silva" />
+        <fieldset>
+          <legend>Dados do Aluno</legend>
+          <div class="form-grid">
+            <label>Nome completo
+              <input type="text" id="aluno" required />
+            </label>
+            <label>Data de nascimento
+              <input type="date" id="nascimento" required />
+            </label>
+            <label>Sexo
+              <select id="sexo">
+                <option value="">Selecione</option>
+                <option value="M">Masculino</option>
+                <option value="F">Feminino</option>
+              </select>
+            </label>
+            <label>Nº Matrícula
+              <input type="text" id="numero" required />
+            </label>
+            <label>Data
+              <input type="date" id="data" />
+            </label>
+            <label>Turma / Série
+              <input type="text" id="turma" />
+            </label>
+            <label>Escola anterior (opcional)
+              <input type="text" id="escolaAnterior" />
+            </label>
           </div>
-          <div class="col-3">
-            <label>Nº Matrícula</label>
-            <input id="numero" required placeholder="Ex: 2025-001" />
-          </div>
-          <div class="col-3">
-            <label>Data</label>
-            <input type="date" id="data" required />
-          </div>
-          <div class="col-4">
-            <label>Curso</label>
-            <input id="curso" required placeholder="Ex: Engenharia" />
-          </div>
-          <div class="col-4">
-            <label>Turma</label>
-            <input id="turma" placeholder="Ex: A" />
-          </div>
-          <div class="col-4">
-            <label>Status</label>
-            <select id="status" required>
-              <option value="Ativa">Ativa</option>
-              <option value="Trancada">Trancada</option>
-              <option value="Cancelada">Cancelada</option>
-            </select>
-          </div>
-          <div class="col-12 split">
-            <span class="hint">Preencha e clique em Salvar. Clique numa linha no relatório para editar.</span>
-            <div class="row">
-              <button class="btn success" type="submit">Salvar</button>
-              <button class="btn ghost" type="reset">Limpar</button>
-            </div>
-          </div>
-          <div id="saveMsg" class="col-12"></div>
-        </form>
-      </div>
+        </fieldset>
 
-      <!-- Relatório -->
-      <div id="relatorio" class="tabpanel" hidden>
-        <div class="row" style="margin-bottom:12px">
-          <input id="q" placeholder="Buscar por nome ou matrícula" style="flex:2" />
-          <input type="date" id="dInicio" style="flex:1" />
-          <input type="date" id="dFim" style="flex:1" />
-          <input id="fCurso" placeholder="Curso" style="flex:1" />
-          <select id="fStatus" style="flex:1">
-            <option value="">Todos</option>
-            <option>Ativa</option>
-            <option>Trancada</option>
-            <option>Cancelada</option>
-          </select>
-          <button id="btnExport" class="btn">Exportar CSV</button>
-        </div>
-        <div class="muted" id="count"></div>
-        <div style="overflow:auto">
-          <table id="tbl">
-            <thead>
-              <tr>
-                <th>Aluno</th>
-                <th>Matrícula</th>
-                <th>Data</th>
-                <th>Curso</th>
-                <th>Turma</th>
-                <th>Status</th>
-                <th style="width:80px">Ações</th>
-              </tr>
-            </thead>
-            <tbody></tbody>
-          </table>
-        </div>
-      </div>
-    </section>
+        <fieldset>
+          <legend>Dados do Responsável</legend>
+          <div class="form-grid">
+            <label>Nome completo
+              <input type="text" id="responsavel" required />
+            </label>
+            <label>Parentesco
+              <input type="text" id="parentesco" placeholder="Pai, mãe, etc." />
+            </label>
+            <label>Telefone celular
+              <input type="tel" id="telResponsavel" required />
+            </label>
+            <label>Email
+              <input type="email" id="emailResponsavel" />
+            </label>
+            <label>Endereço (opcional)
+              <input type="text" id="enderecoResponsavel" />
+            </label>
+          </div>
+        </fieldset>
 
-    <div class="footer">Feito com ❤️ apenas em HTML/CSS/JS. Armazena dados no LocalStorage.</div>
+        <fieldset>
+          <legend>Contatos e Saúde</legend>
+          <div class="form-grid">
+            <label>Telefone adicional
+              <input type="tel" id="telAdicional" />
+            </label>
+            <label>Alergia?
+              <select id="alergia">
+                <option value="nao">Não</option>
+                <option value="sim">Sim</option>
+              </select>
+            </label>
+            <label>Se sim, qual?
+              <input type="text" id="descAlergia" />
+            </label>
+            <label>Uso de medicamentos?
+              <select id="medicamento">
+                <option value="nao">Não</option>
+                <option value="sim">Sim</option>
+              </select>
+            </label>
+            <label>Se sim, quais?
+              <input type="text" id="descMedicamento" />
+            </label>
+            <label>Necessidades especiais?
+              <select id="necessidadeEspecial">
+                <option value="nao">Não</option>
+                <option value="sim">Sim</option>
+              </select>
+            </label>
+            <label>Se sim, quais?
+              <input type="text" id="descNecessidade" />
+            </label>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Status e Documentos</legend>
+          <div class="form-grid">
+            <label>Status
+              <select id="status">
+                <option value="Ativa">Ativa</option>
+                <option value="Transferida">Transferida</option>
+                <option value="Cancelada">Cancelada</option>
+              </select>
+            </label>
+            <label>Documento
+              <input type="file" id="documento" />
+            </label>
+          </div>
+        </fieldset>
+
+        <button type="submit">Salvar</button>
+      </form>
+    </div>
+
+    <!-- Lista -->
+    <div class="tabpanel" id="lista" hidden>
+      <h3>Registros</h3>
+      <div class="filters">
+        <input type="text" id="q" placeholder="Buscar aluno ou matrícula..." />
+        <input type="date" id="dInicio" />
+        <input type="date" id="dFim" />
+        <input type="text" id="fTurma" placeholder="Turma" />
+        <select id="fStatus">
+          <option value="">Todos</option>
+          <option value="Ativa">Ativa</option>
+          <option value="Transferida">Transferida</option>
+          <option value="Cancelada">Cancelada</option>
+        </select>
+        <button id="btnExport">Exportar CSV</button>
+      </div>
+      <table id="tbl">
+        <thead>
+          <tr>
+            <th>Aluno</th>
+            <th>Matrícula</th>
+            <th>Data</th>
+            <th>Turma</th>
+            <th>Status</th>
+            <th>Responsável</th>
+            <th>Documento</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <div id="count"></div>
+    </div>
+
+    <!-- Histórico -->
+    <div class="tabpanel" id="historico" hidden>
+      <h3>Histórico de Alterações</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Aluno</th>
+            <th>Matrícula</th>
+            <th>Turma</th>
+            <th>Status</th>
+            <th>Alterado em</th>
+          </tr>
+        </thead>
+        <tbody id="tblHistorico"></tbody>
+      </table>
+    </div>
   </div>
 
   <script src="script.js"></script>
