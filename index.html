@@ -8,15 +8,9 @@
 </head>
 <body>
 
-  <!-- ===== Login / Cadastro ===== -->
+  <!-- ===== Login ===== -->
   <div class="card" id="authCard">
     <h2>Acesso</h2>
-    <div class="tabs">
-      <button class="tab active" data-tab="login">Login</button>
-      <button class="tab" data-tab="signup">Cadastro</button>
-    </div>
-
-    <!-- Login -->
     <div class="tabpanel" id="login">
       <form id="loginForm">
         <label>Email
@@ -28,26 +22,6 @@
         <button type="submit">Entrar</button>
         <button type="button" id="demoUser">Usar usuário demo</button>
         <div id="loginMsg" class="msg"></div>
-      </form>
-    </div>
-
-    <!-- Cadastro -->
-    <div class="tabpanel" id="signup" hidden>
-      <form id="signupForm">
-        <label>Nome
-          <input type="text" id="suName" required />
-        </label>
-        <label>Email
-          <input type="email" id="suEmail" required />
-        </label>
-        <label>Senha
-          <input type="password" id="suPass" required />
-        </label>
-        <label>Confirmar senha
-          <input type="password" id="suPass2" required />
-        </label>
-        <button type="submit">Criar conta</button>
-        <div id="signupMsg" class="msg"></div>
       </form>
     </div>
   </div>
@@ -63,6 +37,7 @@
       <button class="tab active" data-tab="cadastro">Cadastro</button>
       <button class="tab" data-tab="lista">Lista</button>
       <button class="tab" data-tab="historico">Histórico</button>
+      <button class="tab" data-tab="admin">Administração</button>
     </div>
 
     <!-- Cadastro -->
@@ -227,6 +202,45 @@
         <tbody id="tblHistorico"></tbody>
       </table>
     </div>
+
+    <!-- Administração -->
+    <div class="tabpanel" id="admin" hidden>
+      <h3>Gerenciamento de Usuários</h3>
+      <form id="userForm">
+        <div class="form-grid">
+          <label>Nome
+            <input type="text" id="uName" required />
+          </label>
+          <label>Email
+            <input type="email" id="uEmail" required />
+          </label>
+          <label>Senha
+            <input type="password" id="uPass" required />
+          </label>
+          <label>Perfil
+            <select id="uRole" required>
+              <option value="admin">Administrador</option>
+              <option value="funcionario">Secretaria/Funcionário</option>
+              <option value="direcao">Direção</option>
+            </select>
+          </label>
+        </div>
+        <button type="submit">Adicionar Usuário</button>
+      </form>
+
+      <table id="tblUsers">
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Email</th>
+            <th>Perfil</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
   </div>
 
   <script src="script.js"></script>
